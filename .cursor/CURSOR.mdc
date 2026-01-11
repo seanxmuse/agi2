@@ -1,0 +1,110 @@
+# 20back - Healthcare Visit Management System
+
+## Overview
+A React-based healthcare application for managing patient visits, generating clinical documentation, insurance billing, and patient engagement artifacts. This is the **frontend prototype** only - the backend (FastAPI) is not yet implemented.
+
+## Tech Stack
+- **Frontend**: React 18 + Vite + TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Routing**: React Router DOM v7
+- **Icons**: Lucide React
+- **UI Primitives**: Radix UI (accordion, dialog, tabs, etc.)
+
+## Design System
+- **Primary Color**: Medical Blue `#0066CC` (HSL 210 100% 40%)
+- **Secondary**: Accent Blue `#00A3E0`
+- **Theme**: Blue & white only (medical aesthetic)
+- **Font**: Inter
+- **Spacing**: 8px grid system
+- Light/dark mode support via CSS variables
+
+## Application Structure
+
+### Routes (`/src/App.tsx`)
+- `/` - Dashboard (overview, schedule, quick actions)
+- `/patients` - Patient list
+- `/patients/:patientId` - Patient details
+- `/visits/:visitId` - **Main visit detail page with artifacts**
+- `/insurance-notes` - Insurance notes list
+- `/orders` - Clinical orders list
+- `/patient-portal` - Patient-facing artifact preview
+- `/settings` - Settings (placeholder)
+
+### Key Components
+
+#### Layout (`/src/components/layout/`)
+- `Layout.tsx` - Main layout with collapsible sidebar
+- `Sidebar.tsx` - Navigation sidebar with user info
+- `Header.tsx` - Top header
+
+#### Artifacts (`/src/components/artifacts/`)
+The core of the application - 3 artifacts generated from visit transcripts:
+
+1. **InsuranceNote** - 3-layer billing/documentation
+   - Layer 1: Billing summary & medical necessity (ICD-10 codes, E/M level, clinical justification)
+   - Layer 2: Complete documentation (full medical note)
+   
+2. **ClinicalOrders** - 4 order types with status workflow
+   - Prescriptions (💊)
+   - Labs (🔬) 
+   - Imaging (🩻)
+   - Referrals (📤)
+   - Workflow: Ordered → Sent → In Progress → Completed → Reviewed
+
+3. **PatientArtifact** - Patient-facing summary
+   - Format options: PDF, Video, TikTok-style, Audio
+   - Literacy levels: 5th, 8th, 12th grade, Professional
+   - Language: English, Spanish, Chinese
+   - Interactive Q&A chat (mocked)
+
+#### Other Components
+- `PatientCard.tsx` - Sticky patient info card (demographics, insurance, allergies, medications)
+- `TranscriptConversation.tsx` - Chat-bubble transcript display
+- `ArtifactSection.tsx` - Wrapper with confirm/edit actions
+- `EditModal.tsx` - Modal for editing artifacts
+
+### Data (`/src/data/mockData.ts`)
+All data is mocked for demo purposes:
+- 3 patients (Peter Brown, James Wilson, Sarah Chen)
+- 3 visits (1 completed with full transcript, 2 in other states)
+- Full insurance note, orders, and patient artifact for visit v1
+
+### Types (`/src/types/index.ts`)
+Comprehensive TypeScript types for:
+- Patient, Medication
+- Visit, InsuranceNote, BillingSummary, MedicalNecessity
+- ClinicalOrder (prescription, lab, imaging, referral)
+- PatientArtifact preferences and content
+
+## Key Patterns
+
+### Styling
+- Use `cn()` utility for conditional Tailwind classes
+- Custom CSS classes: `.gradient-medical`, `.gradient-medical-subtle`
+- Custom scrollbar: `.scrollbar-thin`
+- Badge variants for ICD codes, order status
+
+### State Management
+- Local component state with `useState`
+- No global state management (Redux, Zustand) - data is mocked
+
+### Future Backend Integration
+The `prompt.md` file contains full API specifications for:
+- Claude API integration for transcription/summarization
+- NIH Clinical Tables API for ICD-10 code lookup
+- PostgreSQL database with SQLAlchemy
+- FastAPI backend structure
+
+## Development Commands
+```bash
+npm run dev      # Start dev server (Vite)
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # ESLint
+```
+
+## Notes
+- This is a prototype/demo - not HIPAA compliant
+- Patient artifact formats (video, TikTok) are conceptual
+- All medical data is fictional
+- The transcript in TranscriptConversation is hardcoded (not parsed from actual transcript)

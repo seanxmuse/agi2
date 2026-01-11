@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary: Medical Blue #0066CC */
+    --primary: 210 100% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Accent Blue #00A3E0 */
+    --secondary: 197 100% 44%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 210 100% 40%;
+
+    --radius: 0.5rem;
+
+    /* Surface colors */
+    --surface: 210 20% 98%;
+  }
+
+  .dark {
+    --background: 222 47% 5%;
+    --foreground: 0 0% 98%;
+
+    --card: 222 47% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 222 47% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 210 100% 50%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 197 100% 44%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 222 47% 15%;
+    --muted-foreground: 0 0% 64%;
+
+    --accent: 222 47% 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 222 47% 18%;
+    --input: 222 47% 18%;
+    --ring: 210 100% 50%;
+
+    --surface: 222 47% 10%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  ul, ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    list-style: none;
+  }
+}
+
+/* Custom scrollbar */
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+/* Medical gradient backgrounds */
+.gradient-medical {
+  background: linear-gradient(135deg, #0066CC 0%, #00A3E0 100%);
+}
+
+.gradient-medical-subtle {
+  background: linear-gradient(135deg, rgba(0, 102, 204, 0.08) 0%, rgba(0, 163, 224, 0.08) 100%);
+}
+
+/* ICD code badge colors */
+.icd-primary {
+  @apply bg-blue-100 text-blue-800 border-blue-200;
+}
+
+.icd-secondary {
+  @apply bg-slate-100 text-slate-700 border-slate-200;
+}
+
+/* Order status badges */
+.status-ordered {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.status-sent {
+  @apply bg-purple-100 text-purple-800;
+}
+
+.status-progress {
+  @apply bg-amber-100 text-amber-800;
+}
+
+.status-completed {
+  @apply bg-green-100 text-green-800;
+}
+
+.status-reviewed {
+  @apply bg-cyan-100 text-cyan-800;
+}
+
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+/* Layer accordion animations */
+.layer-content {
+  overflow: hidden;
+}
+
+.layer-content[data-state="open"] {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.layer-content[data-state="closed"] {
+  animation: accordion-up 0.2s ease-out;
+}
+
